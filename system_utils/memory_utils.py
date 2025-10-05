@@ -1,7 +1,5 @@
 import psutil
-from functools import lru_cache
 
-@lru_cache(maxsize=1)
 def get_memory_info():
     """Return detailed memory (RAM) information."""
     memory = psutil.virtual_memory()

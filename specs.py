@@ -8,14 +8,35 @@ from system_utils.network_utils import get_network_info
 
 
 
-def get_system_specs():
+def get_system_specs(user_input, last_topic=None):
+    user_input = user_input.lower()
 
-    specs = {
-        "OS": platform.system() + " " + platform.release(),
-        "CPU Info": get_cpu_info(),
-        "Memory Info": get_memory_info(),
-        "Battery Info": get_battery_info(),
-        "Network Info": get_network_info()
+    if any(word in user_input for word in ["battery", "power", "charge"]):
+        topic = "battery"
+        specs = get_battery_info()
+    elif any(word in user_input for word in ["cpu", "processor", "core"]):
+        topic = "cpu"
+        specs = get_cpu_info()
+    elif any(word in user_input for word in ["memory", "ram"]):
+        topic = "memory"
+        specs = get_memory_info()
+    elif any(word in user_input for word in ["network", "internet", "speed", "wifi"]):
+        topic = "network"
+        specs = get_network_info()
+    elif last_topic:
+        topic = last_topic
+        if topic == "battery":
+            specs = get_battery_info()
+        elif topic == "cpu":
+            specs = get_cpu_info()
+        elif topic == "memory":
+            specs = get_memory_info()
+        elif topic == "network":
+            specs = get_network_info()
+        else:
+            specs = get_system_specs()
+    else:
+        topic = None
+        specs = get_system_specs()
 
-    }
-    return specs
+    return specs, topic

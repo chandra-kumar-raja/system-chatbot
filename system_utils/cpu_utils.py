@@ -1,7 +1,5 @@
 import psutil
-from functools import lru_cache
 
-@lru_cache(maxsize=1)
 def get_cpu_info():
     """Return detailed CPU information."""
     cpu_info = {

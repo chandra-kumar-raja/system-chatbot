@@ -1,13 +1,9 @@
 import psutil
 import subprocess
 import platform
-from functools import lru_cache
 
-@lru_cache(maxsize=1)
 def get_battery_info():
-    """
-    Returns detailed battery info for macOS and other OSes.
-    """
+    """Returns detailed battery info."""
     system = platform.system()
     battery_data = {}
 
